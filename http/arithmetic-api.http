@@ -1,0 +1,14 @@
+### Divide two positive numbers
+GET http://localhost:8080/api/arithmetic/divide?dividend=10.4&divisor=2
+
+### Divide negative by positive
+GET http://localhost:8080/api/arithmetic/divide?dividend=-10&divisor=2
+
+### Divide by zero -> 400 Bad Request
+GET http://localhost:8080/api/arithmetic/divide?dividend=10&divisor=0
+
+### Non-numeric dividend -> 400 Bad Request
+GET http://localhost:8080/api/arithmetic/divide?dividend=abc&divisor=2
+
+### Missing divisor -> 400 Bad Request
+GET http://localhost:8080/api/arithmetic/divide?dividend=10
