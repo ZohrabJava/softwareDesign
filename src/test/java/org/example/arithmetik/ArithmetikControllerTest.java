@@ -40,4 +40,19 @@ class ArithmetikControllerTest {
         String result = controller.handleArithmeticException(new ArithmeticException("custom error"));
         assertEquals("custom error", result);
     }
+
+    @Test
+    void nonNumericDividendReturnsBadRequest() throws Exception {
+        mockMvc.perform(get("/api/arithmetik/divide")
+                        .param("dividend", "abc")
+                        .param("divisor", "2"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void missingDivisorReturnsBadRequest() throws Exception {
+        mockMvc.perform(get("/api/arithmetik/divide")
+                        .param("dividend", "10"))
+                .andExpect(status().isBadRequest());
+    }
 }
