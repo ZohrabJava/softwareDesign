@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,10 +26,18 @@ class ArithmetikControllerTest {
     }
 
     @Test
-    void divideByZeroReturnsBadRequest() throws Exception {
+    void divideByZeroReturnsBadRequestWithErrorMessage() throws Exception {
         mockMvc.perform(get("/api/arithmetik/divide")
                         .param("dividend", "10")
                         .param("divisor", "0"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("Բաժանումն ապարիզ է"));
+    }
+
+    @Test
+    void exceptionHandlerReturnsExceptionMessage() {
+        ArithmetikController controller = new ArithmetikController();
+        String result = controller.handleArithmeticException(new ArithmeticException("custom error"));
+        assertEquals("custom error", result);
     }
 }
