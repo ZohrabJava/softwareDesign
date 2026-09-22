@@ -1,21 +1,21 @@
-package org.example.arithmetik;
+package org.example.arithmetic.service;
+
+import org.springframework.stereotype.Service;
 
 /**
- * @author zohrab.hovhannisyan | 9/8/2026 10:05 AM
+ * Կատարում է երկու float թվերի բաժանում՝ առանց "/" օպերատորի, Math, Float և Long
+ * class-երի մեթոդների կիրառման։
+ * Բաժանման տրամաբանությունը աշխատում է 2-ական (binary) համակարգում.
+ *  - նշանը (sign) հաշվարկվում է տրամաբանական XOR (^) օպերատորով
+ *  - թիվը նորմալացվում է [1,2) միջակայքում՝ պարզ բազմապատկումով (*2 / *0.5),
+ *    ինչը IEEE-754 մանտիսսա/աստիճանացույցի արդյունահանման ճշգրիտ նույնարժեքն է
+ *  - մանտիսսաների փաստացի բաժանումը կատարվում է 2-ական երկարացված բաժանման
+ *    (binary restoring division) եղանակով՝ բացառապես bitwise օպերատորներով (<<, >>>, &, |)
  */
-public class LessonOne {
+@Service
+public class ArithmeticService {
 
-    /**
-     * Կատարում է երկու float թվերի բաժանում՝ առանց "/" օպերատորի, Math, Float և Long
-     * class-երի մեթոդների կիրառման։
-     * Բաժանման տրամաբանությունը աշխատում է 2-ական (binary) համակարգում.
-     *  - նշանը (sign) հաշվարկվում է տրամաբանական XOR (^) օպերատորով
-     *  - թիվը նորմալացվում է [1,2) միջակայքում՝ պարզ բազմապատկումով (*2 / *0.5),
-     *    ինչը IEEE-754 մանտիսսա/աստիճանացույցի արդյունահանման ճշգրիտ նույնարժեքն է
-     *  - մանտիսսաների փաստացի բաժանումը կատարվում է 2-ական երկարացված բաժանման
-     *    (binary restoring division) եղանակով՝ բացառապես bitwise օպերատորներով (<<, >>>, &, |)
-     */
-    public static float divide(float dividend, float divisor) {
+    public float divide(float dividend, float divisor) {
         if (divisor == 0f) {
             throw new ArithmeticException("Բաժանումն ապարիզ է");
         }
@@ -84,10 +84,5 @@ public class LessonOne {
         }
 
         return negative ? -result : result;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(divide(10.4f, -0));   // 5.0
-        System.out.println(10.4f / -2.1);           // 5.0
     }
 }
